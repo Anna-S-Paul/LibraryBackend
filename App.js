@@ -1,35 +1,49 @@
-const express= require("express")
-const mongoose= require("mongoose")
-const cors= require("cors")
+const express = require("express")
+const mongoose = require("mongoose")
+const cors = require("cors")
+const {librarymodel} = require("./model/Library")
 
-const app= express()
+const app = express()
 app.use(cors())
+app.use(express.json())
 
-app.post("/",
-    (req,res)=>{
-res.send("Hello")
-    }
+mongoose.connect("mongodb+srv://Annajimmy:annajimmychirackal@cluster0.moqndmi.mongodb.net/librarydb?retryWrites=true&w=majority&appName=Cluster0")
+
+app.post("/", (req, res) => {
+    let input = req.body
+    let library = new librarymodel(input)
+    library.save()
+    console.log(library)
+    res.json({ "status": "success" })
+}
 )
 
 app.post("/search",
-    (req,res)=>{
-res.send("Search complete")
+    (req, res) => {
+        res.send("Search complete")
     }
 )
 
 app.post("/delete",
-    (req,res)=>{
-res.send("Delete")
+    (req, res) => {
+        res.send("Delete")
     }
 )
 
-app.post("/viewall",
-    (req,res)=>{
-res.send("Viewed")
-    }
+app.get("/viewall", (req, res) => {
+    librarymodel.find().then(
+        (data) => {
+            res.json(data)
+        }
+    ).catch(
+        (error)=> { 
+
+        }
+    )
+}
 )
 
-app.listen(8080,()=>{
+app.listen(8082, () => {
     console.log("server started")
-} 
+}
 )

@@ -1,12 +1,12 @@
 const mongoose = require("mongoose")
-const schema= mongoose.schema(
+const schema = mongoose.Schema(
     {
-"title":String,
-"category":String,
-"description":String,
-"authorname":String,
-"price":Number
+        "title":{type:String,required:true},
+        "category": {type:String,required:true},
+        "description": {type:String,required:true},
+        "authorname":{type:String,required:true},
+        "price":{type:Number,required:true}
     }
 )
-let librarymodel=mongoose.Model("librarys",schema)
-module.exports={librarymodelmodel}
+let librarymodel = mongoose.model("librarys", schema)
+module.exports = {librarymodel}
